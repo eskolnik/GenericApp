@@ -1,13 +1,18 @@
 SampleApp::Application.routes.draw do
 
+  resources :puzzles
+
+  resources :jokes
+
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
 
-  match '/signin',  to: 'sessions#new'
+  match '/signin',  to: 'sessions#new', as: :signin
   match '/signout', to: 'sessions#destroy', via: :delete
   match '/signup',  to: 'users#new'
+  match '/puzzles/new', to: 'puzzles#new', as: :new_puzzle
 
-  root to: 'static_pages#home'
+  root to: 'puzzles#index'
 
   match '/help',    to: 'static_pages#help'
   match '/about',   to: 'static_pages#about'

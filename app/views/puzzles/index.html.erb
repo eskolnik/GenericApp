@@ -1,0 +1,27 @@
+<h1>Listing puzzles</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Date Created</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @puzzles.each do |puzzle| %>
+  <tr>
+    <td><%= puzzle.title %></td>
+    <td><%= puzzle.created_at %></td>
+    <td><%= link_to 'Show', puzzle %></td>
+    <% if (signed_in? and current_user? User.find(puzzle.user_id)) %>
+    <td><%= link_to 'Edit', edit_puzzle_path(puzzle) %></td>
+    <td><%= link_to 'Destroy', puzzle, confirm: 'Are you sure?', method: :delete %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Puzzle', new_puzzle_path %>
